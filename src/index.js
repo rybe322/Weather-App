@@ -1,26 +1,8 @@
-import _ from "lodash";
-import printMe from "./print";
+import { WeatherModel } from "./models/weathermodel";
+import { GeocodingAPI } from "./models/geocodingapi";
+import { weatherAPItest } from "./models/weatherapi";
+// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 
-function component() {
-  const element = document.createElement("div");
-  const btn = document.createElement("button");
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
-  element.classList.add("hello");
-
-  btn.innerHTML = "Click me";
-  btn.onclick = printMe;
-
-  element.appendChild(btn);
-
-  const h1 = document.createElement("h1");
-  h1.textContent = "New text";
-
-  element.appendChild(h1);
-  element.appendChild(h1);
-
-  return element;
-}
-
-document.body.appendChild(component());
+const API_KEY = "e66a63c7961f75024cf1170ee5f1058b";
+import { WeatherAPI } from "./models/weatherapi";
+import { LocationInformation } from "./models/locationinformation";
