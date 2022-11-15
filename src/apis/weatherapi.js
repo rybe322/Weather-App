@@ -1,6 +1,5 @@
-import { GeocodingAPI } from "./geocodingapi";
-import { WeatherModel } from "./weathermodel";
-import { LocationModel } from "./locationmodel";
+import { WeatherModel } from "../models/weathermodel";
+import { LocationModel } from "../models/locationmodel";
 
 export const WeatherAPI = (locationModel) => {
   const API_KEY = "f3c32091bf8f9865219ac12748616ead";
@@ -20,7 +19,7 @@ export const WeatherAPI = (locationModel) => {
   const makeUrl = () => {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
     let URL = BASE_URL;
-    URL += `lat=${locationModel.latitude}&lon=${locationModel.longitude}&appid=${API_KEY}`;
+    URL += `lat=${locationModel.lat}&lon=${locationModel.lon}&appid=${API_KEY}`;
     //console.log(URL);
     return URL;
   };
@@ -36,17 +35,3 @@ export const WeatherAPI = (locationModel) => {
   }
   return { getWeatherData };
 };
-/*
-Example uses:
-export async function weatherAPItest(locationInformation) {
-  let locationData = await GeocodingAPI(locationInformation).getLocationData();
-  let locationModel = LocationModel(locationData);
-  console.log(locationModel);
-  let weatherData = await WeatherAPI(locationModel).getWeatherData();
-  let weatherModel = WeatherModel(weatherData);
-  console.log(weatherModel);
-}
-weatherAPItest(LocationInformation("London", "Englanasdfasdfd"));
-weatherAPItest(LocationInformation("", "", "", "60173"));
-
-*/

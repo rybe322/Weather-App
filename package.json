@@ -23,6 +23,7 @@
   "homepage": "https://github.com/rybe322/Weather-App#readme",
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
@@ -30,6 +31,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "parse-address": "^1.1.2"
   }
 }
