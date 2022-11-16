@@ -33,7 +33,7 @@ searchInput.oninput = () => {
   if (parsedObject.city && parsedObject.state) console.log(parsedObject);
 };
 */
-
+//asdfad
 form.onsubmit = async (e) => {
   e.preventDefault();
   const value = document.querySelector("input").value;
