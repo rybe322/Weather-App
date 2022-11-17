@@ -1,10 +1,10 @@
-export const WeatherInformation = (weatherModel) => {
+export const WeatherInformationElement = (weatherModel) => {
   const InfoPair = (label, value) => {
     const div = document.createElement("div");
     const labelP = document.createElement("p");
     const valueP = document.createElement("p");
     labelP.textContent = label;
-    valueP.textContent = value;
+    valueP.textContent = `${value}`;
     div.appendChild(labelP);
     div.appendChild(valueP);
     return div;
