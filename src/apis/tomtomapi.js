@@ -20,6 +20,16 @@ export const TomTomAPI = (searchQuery) => {
     }
   }
 
+  async function getPositionData() {
+    try {
+      let response = await fetch(makeUrl(), { mode: "cors" });
+      let json = await response.json();
+      return json.results[0].position;
+    } catch (error) {
+      console.log("Error from getLocationData: ", error);
+    }
+  }
+
   async function getJsonData() {
     try {
       let response = await fetch(makeUrl(), { mode: "cors" });
@@ -30,7 +40,14 @@ export const TomTomAPI = (searchQuery) => {
     }
   }
 
-  return { getData, getJsonData };
+  return { getData, getPositionData, getJsonData };
+};
+
+export const TomTomJsonParser = (jsonObject) => {
+  const municipality = jsonObject.address.municipality;
+  const country = jsonObject.address.countrySubdivisionName;
+  const position = jsonObject.position;
+  return { municipality, country, position };
 };
 
 /*

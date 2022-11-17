@@ -1,6 +1,3 @@
-import { WeatherModel } from "../models/weathermodel";
-import { LocationModel } from "../models/locationmodel";
-
 export const WeatherAPI = (locationModel) => {
   const API_KEY = "f3c32091bf8f9865219ac12748616ead";
   let BASE_URL = " https://api.openweathermap.org/data/2.5/weather?";
@@ -19,7 +16,7 @@ export const WeatherAPI = (locationModel) => {
   const makeUrl = () => {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
     let URL = BASE_URL;
-    URL += `lat=${locationModel.lat}&lon=${locationModel.lon}&appid=${API_KEY}`;
+    URL += `lat=${locationModel.position.lat}&lon=${locationModel.position.lon}&appid=${API_KEY}`;
     //console.log(URL);
     return URL;
   };
