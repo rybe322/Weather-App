@@ -19,24 +19,39 @@ const TestWeatherModel = async () => {
 };
 
 const DomEventManager = () => {
-  const form = document.querySelector("form");
-  form.onsubmit = async (e) => {
+  const HandleFormSubmit = async (e) => {
     e.preventDefault();
-    const value = document.querySelector("input").value;
+    let input = document.querySelector("input");
+    let value = document.querySelector("input").value;
 
     let tomtomdata = await TomTomAPI(value).getData();
-    let tomtomlocatoin = TomTomJsonParser(tomtomdata);
-    let weatherData = await WeatherAPI(tomtomlocatoin).getWeatherData();
+    let locationModel = TomTomJsonParser(tomtomdata);
+    console.log("location data", locationModel);
+    let weatherData = await WeatherAPI(locationModel).getWeatherData();
     let weatherModel = WeatherModel(weatherData);
-    if (document.querySelector("#weather-info-container"))
-      DomManager().resetWeatherInformation();
-    document
-      .querySelector("#root")
-      .appendChild(WeatherInformation(weatherModel));
+
+    DomManager.updateInformation(weatherModel, locationModel);
+    input.value = "";
   };
+
+  document.querySelector("form").onsubmit = HandleFormSubmit;
 };
 
-const DomManager = () => {
+const LocationInformationElement = (locationModel) => {
+  const div = document.createElement("div");
+  div.id = "location-info-container";
+
+  const municipalityDiv = document.createElement("div");
+  const countryDiv = document.createElement("div");
+  municipalityDiv.textContent = locationModel.municipality;
+  countryDiv.textContent = locationModel.country;
+
+  div.appendChild(municipalityDiv);
+  div.appendChild(countryDiv);
+  return div;
+};
+
+const DomManager = (() => {
   const initialLoad = () => {
     const rootDiv = document.createElement("div");
     rootDiv.id = "root";
@@ -59,11 +74,30 @@ const DomManager = () => {
     console.log("weatherinfodiv after", weatherInfoDiv);
     */
   };
+  const resetLocationInformation = () => {
+    const root = document.querySelector("#root");
+    const locationInfoDiv = document.querySelector("#location-info-container");
+    root.removeChild(locationInfoDiv);
+  };
+
+  const updateInformation = (weatherModel, locationModel) => {
+    const root = document.querySelector("#root");
+    if (document.querySelector("#weather-info-container")) {
+      console.log("hello from if");
+      resetWeatherInformation();
+      resetLocationInformation();
+    }
+
+    console.log("update information weathermodel: ", weatherModel);
+    console.log("update information locatoinModel: ", locationModel);
+    root.appendChild(LocationInformationElement(locationModel));
+    root.appendChild(WeatherInformation(weatherModel));
+  };
 
   const addWeatherInformation = () => {};
 
-  return { initialLoad, resetWeatherInformation };
-};
+  return { initialLoad, resetWeatherInformation, updateInformation };
+})();
 
-DomManager().initialLoad();
+DomManager.initialLoad();
 DomEventManager();
