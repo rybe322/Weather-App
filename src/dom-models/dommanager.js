@@ -1,12 +1,13 @@
-import { TomTomAPI } from "../apis/tomtomapi";
-import { TomTomJsonParser } from "../apis/tomtomapi";
+import { TomTomAPI, TomTomJsonParser } from "../apis/tomtomapi";
 import { WeatherAPI } from "../apis/weatherapi";
 import { WeatherModel } from "../models/weathermodel";
 import { SearchForm } from "./searchform";
 import { LocationInformationElement } from "./locationinformationelement";
 import { WeatherInformationElement } from "./weatherinformationelement";
+import { TimeApi, TimeParser } from "../apis/timeapi";
+import { TimeInformationElement } from "./timeinformationelement";
 
-export const DomManager = (() => {
+export const DomManager = ((weatherModel, locationModel, timeModel) => {
   const initialLoad = () => {
     const rootDiv = document.createElement("div");
     const formDiv = document.createElement("div");
@@ -28,15 +29,23 @@ export const DomManager = (() => {
     const locationInfoDiv = document.querySelector("#location-info-container");
     root.removeChild(locationInfoDiv);
   };
+  const resetTimeInformation = () => {
+    const root = document.querySelector("#root");
+    const timeInfoDiv = document.querySelector("#time-info-container");
+    root.removeChild(timeInfoDiv);
+  };
 
-  const updateInformation = (weatherModel, locationModel) => {
+  const updateInformation = (weatherModel, locationModel, timeModel) => {
     const root = document.querySelector("#root");
     if (document.querySelector("#weather-info-container")) {
       resetWeatherInformation();
       resetLocationInformation();
+      resetTimeInformation();
     }
     root.appendChild(LocationInformationElement(locationModel));
+    root.appendChild(TimeInformationElement(timeModel));
     root.appendChild(WeatherInformationElement(weatherModel));
+    // pass in the timeModel to update the background or pictures
   };
 
   return { initialLoad, updateInformation };
@@ -50,11 +59,12 @@ export const DomEventManager = () => {
 
     let tomtomdata = await TomTomAPI(value).getData();
     let locationModel = TomTomJsonParser(tomtomdata);
-    console.log("location data", locationModel);
     let weatherData = await WeatherAPI(locationModel).getWeatherData();
+    let timeData = await TimeApi(locationModel);
+    let timeModel = TimeParser(timeData);
     let weatherModel = WeatherModel(weatherData);
 
-    DomManager.updateInformation(weatherModel, locationModel);
+    DomManager.updateInformation(weatherModel, locationModel, timeModel);
     input.value = "";
   };
 
