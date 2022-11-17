@@ -17,6 +17,7 @@ export const WeatherInformationElement = (weatherModel) => {
   div.appendChild(InfoPair("Minimum Temperature", weatherModel.minTemp));
   div.appendChild(InfoPair("Maximum Temperature", weatherModel.maxTemp));
   div.appendChild(InfoPair("Wind Speed", weatherModel.windSpeed));
+  div.appendChild(InfoPair("Main", weatherModel.main));
   div.appendChild(InfoPair("Description", weatherModel.description));
   div.id = "weather-info-container";
   return div;

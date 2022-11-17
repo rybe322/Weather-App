@@ -60,6 +60,7 @@ export const DomEventManager = () => {
     let tomtomdata = await TomTomAPI(value).getData();
     let locationModel = TomTomJsonParser(tomtomdata);
     let weatherData = await WeatherAPI(locationModel).getWeatherData();
+    console.log(weatherData);
     let timeData = await TimeApi(locationModel);
     let timeModel = TimeParser(timeData);
     let weatherModel = WeatherModel(weatherData);

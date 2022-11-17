@@ -14,6 +14,7 @@ export const WeatherModel = (weatherJson, units = "f") => {
   let minTemp = weatherJson ? weatherJson.main.temp_min : "";
   let maxTemp = weatherJson ? weatherJson.main.temp_max : "";
   let windSpeed = weatherJson ? weatherJson.wind.speed : "";
+  let main = weatherJson ? weatherJson.weather[0].main : "";
   let description = weatherJson ? weatherJson.weather[0].description : "";
 
   if (curTemp) {
@@ -36,6 +37,7 @@ export const WeatherModel = (weatherJson, units = "f") => {
     minTemp,
     maxTemp,
     windSpeed,
+    main,
     description,
     units,
   };
