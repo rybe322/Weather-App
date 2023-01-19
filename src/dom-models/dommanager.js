@@ -38,6 +38,7 @@ export const DomManager = ((weatherModel, locationModel, timeModel) => {
   const updateInformation = (weatherModel, locationModel, timeModel) => {
     const root = document.querySelector("#root");
     if (document.querySelector("#weather-info-container")) {
+      // should not use this for checking empty or not
       resetWeatherInformation();
       resetLocationInformation();
       resetTimeInformation();
