@@ -1,4 +1,5 @@
 export const WeatherModel = (weatherJson, units = "f") => {
+  // move this to utility so its not being made with every WeatherModel
   const kelvinToFarenheight = (temp) => {
     return ((temp - 273.15) * 9) / 5 + 32;
   };

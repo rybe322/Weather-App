@@ -53,18 +53,29 @@ export const DomManager = ((weatherModel, locationModel, timeModel) => {
 })();
 
 export const DomEventManager = () => {
+  function modelCheck(weatherModel, locationModel, timeModel) {
+    return (weatherModel && locationModel && timeModel)
+
+  }
   const HandleFormSubmit = async (e) => {
     e.preventDefault();
     let input = document.querySelector("input");
     let value = document.querySelector("input").value;
 
     let tomtomdata = await TomTomAPI(value).getData();
+    if (!tomtomdata) {
+      return
+    }
     let locationModel = TomTomJsonParser(tomtomdata);
     let weatherData = await WeatherAPI(locationModel).getWeatherData();
     console.log(weatherData);
     let timeData = await TimeApi(locationModel);
     let timeModel = TimeParser(timeData);
     let weatherModel = WeatherModel(weatherData);
+
+    if (!modelCheck(weatherModel, locationModel, timeModel)) {
+      console.log('nope')
+    }
 
     DomManager.updateInformation(weatherModel, locationModel, timeModel);
     input.value = "";
