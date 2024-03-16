@@ -15,7 +15,7 @@ export const WeatherAPI = (locationModel) => {
 
   const makeUrl = () => {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-    let URL = BASE_URL;
+    const URL = BASE_URL;
     URL += `lat=${locationModel.position.lat}&lon=${locationModel.position.lon}&appid=${API_KEY}`;
     //console.log(URL);
     return URL;
@@ -23,8 +23,8 @@ export const WeatherAPI = (locationModel) => {
   // Returns an object with the location data.
   async function getWeatherData() {
     try {
-      let response = await fetch(makeUrl(), { mode: "cors" });
-      let json = await response.json();
+      const response = await fetch(makeUrl(), { mode: "cors" });
+      const json = await response.json();
       return json;
     } catch (error) {
       console.log("Error from getLocationData: ", error);
