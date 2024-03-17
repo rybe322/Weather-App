@@ -32,8 +32,8 @@ export const TomTomAPI = (searchQuery) => {
 
   async function getJsonData() {
     try {
-      let response = await fetch(makeUrl(), { mode: "cors" });
-      let json = await response.json();
+      const response = await fetch(makeUrl(), { mode: "cors" });
+      const json = await response.json();
       return json;
     } catch (error) {
       console.log("Error from getLocationData: ", error);
