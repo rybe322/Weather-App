@@ -15,7 +15,7 @@ export const WeatherAPI = (locationModel) => {
 
   const makeUrl = () => {
     // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-    const URL = BASE_URL;
+    let URL = BASE_URL;
     URL += `lat=${locationModel.position.lat}&lon=${locationModel.position.lon}&appid=${API_KEY}`;
     //console.log(URL);
     return URL;
